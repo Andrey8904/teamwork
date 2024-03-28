@@ -10,7 +10,8 @@ dp = Dispatcher()
 @dp.message(CommandStart())
 async def start_handler(message: types.Message):
     try:
-        await message.answer('Hello')
+        await message.answer('Hello! I am Bot.')
+
     except TypeError:
         await message.answer('Error')
 
