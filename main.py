@@ -4,8 +4,10 @@ from aiogram.filters import CommandStart
 import asyncio
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.types import InlineKeyboardButton
+from keys import bot_token
 
-token = '6665020149:AAFdiDsGfMW0bO5IIgTBpbCwUoxmXyD-rwA'
+
+token = bot_token
 dp = Dispatcher()
 
 
