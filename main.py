@@ -17,7 +17,7 @@ async def start_handler(message: types.Message):
         builder = InlineKeyboardBuilder()
         first_btn = InlineKeyboardButton(text='Кнопка 1', callback_data='first_button')
         builder.row(first_btn)
-        await message.answer('Hello! I am Bot.\n\nHow i can help?', reply_markup=builder.as_markup())
+        await message.answer('Hello! I am Bot.\n\nHow i can help? \nCommand: /help\nCommand: /start', reply_markup=builder.as_markup())
 
     except TypeError:
         await message.answer('Error')
@@ -32,6 +32,25 @@ async def btn_1(callback: types.CallbackQuery):
         await callback.message.answer('Button one', reply_markup=builder.as_markup())
     except TypeError:
         await callback.message.answer('Error btn one')
+
+
+@dp.message(F.text == '/help')
+async def bot_help(message: types.Message):
+    try:
+        builder = InlineKeyboardBuilder()
+        back_to_start_btn = InlineKeyboardButton(text='Back to start', callback_data='back_to_start')
+        builder.row(back_to_start_btn)
+        await message.answer('Help block', reply_markup=builder.as_markup())
+    except TypeError:
+        await message.answer('Error help')
+
+
+@dp.callback_query(F.data == 'back_to_start')
+async def back_to_start_func(callback: types.CallbackQuery):
+    try:
+        await start_handler(callback.message)
+    except TypeError:
+        await callback.message.answer('Error back to start')
 
 
 async def main():
