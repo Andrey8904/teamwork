@@ -34,6 +34,14 @@ async def btn_1(callback: types.CallbackQuery):
         await callback.message.answer('Error btn one')
 
 
+@dp.callback_query(F.data == 'second_button')
+async def btn_2(callback: types.CallbackQuery):
+    try:
+        await callback.message.answer('Button two')
+    except TypeError:
+        await callback.message.answer('Error btn two')
+
+
 @dp.message(F.text == '/help')
 async def bot_help(message: types.Message):
     try:
