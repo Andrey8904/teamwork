@@ -17,7 +17,7 @@ async def start_handler(message: types.Message):
         builder = InlineKeyboardBuilder()
         first_btn = InlineKeyboardButton(text='Кнопка 1', callback_data='first_button')
         builder.row(first_btn)
-        await message.answer('Hello! I am Bot.', reply_markup=builder.as_markup())
+        await message.answer('Hello! I am Bot.\n\nHow i can help?', reply_markup=builder.as_markup())
 
     except TypeError:
         await message.answer('Error')
