@@ -1,18 +1,35 @@
-from aiogram import Dispatcher, types, Bot
+from aiogram import Dispatcher, types, Bot, F
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 import asyncio
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.types import InlineKeyboardButton
 
-token = ''
+token = '6665020149:AAFdiDsGfMW0bO5IIgTBpbCwUoxmXyD-rwA'
 dp = Dispatcher()
 
 
 @dp.message(CommandStart())
 async def start_handler(message: types.Message):
     try:
-        await message.answer('Hello')
+        builder = InlineKeyboardBuilder()
+        first_btn = InlineKeyboardButton(text='Кнопка 1', callback_data='first_button')
+        builder.row(first_btn)
+        await message.answer('Hello! I am Bot.', reply_markup=builder.as_markup())
+
     except TypeError:
         await message.answer('Error')
+
+
+@dp.callback_query(F.data == 'first_button')
+async def btn_1(callback: types.CallbackQuery):
+    try:
+        builder = InlineKeyboardBuilder()
+        second_btn = InlineKeyboardButton(text='Кнопка 2', callback_data='second_button')
+        builder.row(second_btn)
+        await callback.message.answer('Button one', reply_markup=builder.as_markup())
+    except TypeError:
+        await callback.message.answer('Error btn one')
 
 
 async def main():
@@ -25,3 +42,5 @@ if __name__ == '__main__':
         asyncio.run(main())
     except KeyboardInterrupt as ek:
         print('Exit', ek)
+
+
